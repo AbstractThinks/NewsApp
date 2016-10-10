@@ -1,0 +1,9 @@
+{
+	"status" : 0,
+	"result" : {
+		"title" : "test1",
+		"content" : "test1",
+		"praise" : [],
+		"inverted" : []
+	}
+}
