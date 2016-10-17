@@ -68,14 +68,7 @@ class Article extends Component {
   
             <View style={[styles.container]}>
               <ArticleWebView />
-              <View style={[styles.flexDirectionRow]}>
-                <View>
-                  <FontAwesome name="thumbs-o-up" size={40} color={Styles.ThemeBackColor.color} onPress={this._handlepraise.bind(this)}/>
-                </View>
-                <View >
-                  <FontAwesome name="thumbs-o-down" size={40} color={Styles.ThemeBackColor.color} onPress={this._handleinverted.bind(this)}/>
-                </View>
-              </View>
+    
             </View>
               
  

@@ -20,21 +20,8 @@ import Article from './article.js';
 
 const styles = StyleSheet.create(Styles);
 
-class ArticleListItem extends React.Component {
-  _onFetch(page = 1, callback, options) {
-    // setTimeout(() => {
-    //   fetch('/Users/Jesse/Desktop/NewsApp/HuaxiApp2/src/data/list.json')
-    //     .then(function(response) {
-    //       return response.json()
-    //     })
-    //     .then(function(json) {
-    //       console.log('parsed json', json)
-    //       callback(json.result)
-    //     }).catch(function(ex) {
-    //       console.log('parsing failed', ex)
-    //     })
-    // }, 1000)
-      
+class MyListItem extends React.Component {
+  _onFetch(page = 1, callback, options) {  
       setTimeout(() => {
           var rows = ['row ' + ((page - 1) * 3 + 1), 'row ' + ((page - 1) * 3 + 2), 'row ' + ((page - 1) * 3 + 3)];
           if (page === 2) {
@@ -50,23 +37,7 @@ class ArticleListItem extends React.Component {
       console.log(rowData + ' pressed');
   }
   _renderRowView(rowData) {
-      // return ( 
-      //   <TouchableHighlight
-      //     underlayColor = '#c8c7cc'
-      //     onPress = {
-      //         () => this.props.navigator.push({
-      //           component: Article,
-      //         })
-      //     }
-      //     style = {[Styles.ListComponent]}>
-      //     <View>
-      //         <Text style = {[Styles.ListContentTitle]}> { rowData.title } </Text> 
-      //         <Text style = {[Styles.ListContentDescrible]}> 
-      //              { rowData.description }</Text>
-      //         <Text style = {[Styles.ListContentSubtitle]}></Text>
-      //     </View>
-      //   </TouchableHighlight >
-      // );
+      
       return ( 
         <TouchableHighlight
           underlayColor = '#c8c7cc'
@@ -78,11 +49,6 @@ class ArticleListItem extends React.Component {
           style = {[Styles.ListComponent]}>
           <View>
               <Text style = {[Styles.ListContentTitle]}> 吴小平： 不要害怕A股大熊市，朝死的整，no zuo no die one more try </Text> 
-              <Image
-                style={{height: 160,marginVertical: 8}}
-                resizeMode='contain'
-                source={{uri: 'http://pic1.win4000.com/wallpaper/4/510f446941311.jpg'}}
-              />
               <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
                 <View>
                   <Image
@@ -126,33 +92,6 @@ class ArticleListItem extends React.Component {
 
     );
   }
-  // _renderRefreshableWaitingView() {
-  //   return (
-  //     <View style={[styles.paginationView]}>
-  //       <Text style={[styles.actionsLabel]}>
-  //         ~
-  //       </Text>
-  //     </View>
-  //   );
-  // }
-  // _renderRefreshableWillRefreshView() {
-  //   return (
-  //     <View style={[styles.paginationView]}>
-  //       <Text style={[styles.actionsLabel]}>
-  //         ~
-  //       </Text>
-  //     </View>
-  //   );
-  // }
-  // _renderRefreshableFetchingView() {
-  //   return (
-  //     <View style={[styles.paginationView]}>
-  //       <Text style={[styles.actionsLabel]}>
-  //         ~
-  //       </Text>
-  //     </View>
-  //   );
-  // }
 
 	render() {
 		return(
@@ -162,7 +101,7 @@ class ArticleListItem extends React.Component {
           firstLoader={true}
           initialListSize={3}
           pagination={true}
-          refreshable={true} 
+          refreshable={false} 
           withSections={false}
           enableEmptySections={true}
           paginationWaitingView={this._renderPaginationWaitingView}
@@ -180,4 +119,4 @@ class ArticleListItem extends React.Component {
 }
 
 
-export default ArticleListItem;
+export default MyListItem;

@@ -9,7 +9,8 @@ import {
 
 import NavigationBar from 'react-native-navbar';
 import Styles from '../style/style.js';
-import InitialScreen from './list.js';
+import InitialScreen from './myInfo.js';
+
 
 
 const styles = StyleSheet.create(Styles);
@@ -18,10 +19,10 @@ function renderScene(route, navigator) {
   return <route.component route={route} navigator={navigator} />;
 }
 
-class NavRoute extends React.Component {
+class NavRouteMy extends React.Component {
     constructor(props) {
         super(props);
-        this.displayName = 'NavRoute';
+        this.displayName = 'NavRouteMy';
     }
 
     render() {
@@ -39,4 +40,4 @@ class NavRoute extends React.Component {
     }
 }
 
-export default NavRoute;
+export default NavRouteMy;

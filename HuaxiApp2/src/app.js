@@ -6,6 +6,7 @@ import {
   View
 } from 'react-native';
 import TopBarIconExample from './component/navTab.js';
+// import TopBarIconExample from './component/tab.Test.js';
 
 class App extends React.Component {
     constructor(props) {

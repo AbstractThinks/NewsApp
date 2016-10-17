@@ -24,12 +24,13 @@ const Styles = {
         color: 'rgba(0, 0, 0, 0.870588)',
     },
     ListComponent: {
-        paddingTop: 8,
-        paddingBottom: 8,
-        paddingLeft: 8,
-        paddingRight: 8,
-        borderBottomWidth: 1,
+        padding: 8,
+        marginTop: 8,
+        marginLeft: 8,
+        marginRight: 8,
+        borderWidth: 1,
         borderColor: 'rgb(224, 224, 224)',
+        backgroundColor: 'white',
 
     },
     ListContent: {
@@ -39,7 +40,7 @@ const Styles = {
         alignSelf: 'center'
     },
     ListContentTitle: {
-        fontSize: 18,
+        fontSize: 16,
     },
     ListContentDescrible: {
 
@@ -57,6 +58,24 @@ const Styles = {
     	paddingHorizontal: 32,
     	paddingVertical: 16,
     },
+    tab: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: 10,
+    },
+    tabs: {
+        height: 50,
+        flexDirection: 'row',
+        paddingTop: 5,
+        borderWidth: 1,
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
+        borderBottomColor: 'rgba(0,0,0,0.05)',
+        backgroundColor: 'rgb(0, 188, 212)',
+      }
+    
 
 
 };

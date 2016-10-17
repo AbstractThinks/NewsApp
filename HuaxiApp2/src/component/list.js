@@ -11,7 +11,7 @@ import GiftedListView from 'react-native-gifted-listview';
 
 import Styles from '../style/style.js';
 import Article from './article.js';
-import ListItem from './listItem.js';
+import ArticleListItem from './listItem.js';
 
 const styles = StyleSheet.create(Styles);
 class InitialScreen extends React.Component {
@@ -19,7 +19,11 @@ class InitialScreen extends React.Component {
         super(props);
         this.displayName = 'InitialScreen';   
     }
-    
+    componentWillMount() {
+      this.setState({
+        list : <ArticleListItem navigator={this.props.navigator}/>
+      })
+    }
     render() {
 
       const titleConfig = {
@@ -27,13 +31,13 @@ class InitialScreen extends React.Component {
           tintColor: Styles.ThemeColor.color,
       };
        return (
-	      <View style={[styles.container]}>
+	      <View style={[styles.container,]}>
           <NavigationBar
           title={titleConfig}
           tintColor={Styles.ThemeBackColor.color}
           />
           <View style={[styles.container]}>
-            <ListItem navigator={this.props.navigator}/>
+            {this.state.list}
           </View>
         </View>
 
