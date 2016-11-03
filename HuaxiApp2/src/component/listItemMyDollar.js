@@ -23,17 +23,23 @@ const styles = StyleSheet.create(Styles);
 class MyListItemDollar extends React.Component {
   _onFetch(page = 1, callback, options) {
     
+      fetch("http://localhost:3000/huxiuser/getbalance", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: "key=123"
+      }).then(function(response) {
+          return response.json()
+      })
+      .then(function(json) {
+          callback(json.data[0].result, {
+              allLoaded: true, // the end of the list is reached
+          });
+      }).catch(function(ex) {
+          console.log('parsing failed', ex)
+      });
       
-      setTimeout(() => {
-          var rows = ['row ' + ((page - 1) * 3 + 1), 'row ' + ((page - 1) * 3 + 2), 'row ' + ((page - 1) * 3 + 3)];
-          if (page === 2) {
-              callback(rows, {
-                  allLoaded: true, // the end of the list is reached
-              });
-          } else {
-              callback(rows);
-          }
-      }, 1000); // simulating network fetching
   }
   _onPress(rowData) {
       console.log(rowData + ' pressed');
@@ -42,19 +48,14 @@ class MyListItemDollar extends React.Component {
       return ( 
         <TouchableHighlight
           underlayColor = '#c8c7cc'
-          onPress = {
-              () => this.props.navigator.push({
-                component: Article,
-              })
-          }
           style = {[Styles.ListComponent]}>
           <View style={[{flexDirection: 'row', paddingLeft: 15, paddingRight: 15, }]}>     
               <View >
-                <Text style = {[Styles.ListContentTitle]}> 文章分成收入</Text>          
-                <Text style={{fontSize: 14, color: 'rgb(154, 154, 154)', marginLeft: 4}}>2016-09-07</Text>
+                <Text style = {[Styles.ListContentTitle]}> {rowData.type == "1"? "文章分成收入":"文章解锁支出"}</Text>          
+                <Text style={{fontSize: 14, color: 'rgb(154, 154, 154)', marginLeft: 4}}>{rowData.time }</Text>
               </View>
               <View style={[{flexDirection: 'row', flex: 1, justifyContent: 'flex-end', alignSelf: 'center'}]}>   
-                <Text style = {[Styles.ListContentTitle,{fontSize: 18, color:'rgb(211, 179, 106)'}]}>＋5.60</Text>          
+                <Text style = {[Styles.ListContentTitle,{fontSize: 18, color:'rgb(211, 179, 106)'}]}>{rowData.balance} </Text>          
               </View>  
           </View>
         </TouchableHighlight >

@@ -24,29 +24,60 @@ class InitialScreen extends React.Component {
         this.displayName = 'InitialScreen'; 
         // this.state.listComponent = <MyListItem />
         this.state = {
+          username:"",
+          userid:"",
+          userbalance:"",
+          buyid: "",
+          balanceid: "",
           listButtonColor : "red",
           dollarButtonColor : "rgb(110, 110, 110)",
-          listComponent : <MyListItem navigator={this.props.navigator}/>,
+          listComponent : <MyListItem navigator={this.props.navigator} />,
         }
         
     }
-        
+    componentWillMount() {
+      this._onFetch()
+    }
+    _onFetch() {
+      var that = this;
+      fetch("http://localhost:3000/huxiuser/getuser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "key=123"
+      }).then(function(response) {
+        return response.json()
+      })
+      .then(function(json) {
+        that.setState({
+          "username":json.data[0].name,
+          "userid":json.data[0].id,
+          "userbalance":json.data[0].balance,
+          "buyid":json.data[0].buyid,
+          "balanceid":json.data[0].balanceid
+        });
+      }).catch(function(ex) {
+        console.log('parsing failed', ex)
+      });
+
+    }    
     _handMyDollar() {
       this.setState({
-        listComponent : <MyListItemDollar navigator={this.props.navigator}/>,
+        listComponent : <MyListItemDollar navigator={this.props.navigator} userBalanceList={this.state.balanceid}/>,
         listButtonColor : 'rgb(110, 110, 110)',
         dollarButtonColor : 'red'
       })
     }
     _handMyList() {
       this.setState({
-        listComponent : <MyListItem navigator={this.props.navigator}/>,
+        listComponent : <MyListItem navigator={this.props.navigator} userArticleList={this.state.buyid}/>,
         listButtonColor : 'red',
         dollarButtonColor : 'rgb(110, 110, 110)'
       })
     }
     render() {
-
+      
       const titleConfig = {
           title: '我',
           tintColor: Styles.ThemeColor.color,
@@ -73,12 +104,12 @@ class InitialScreen extends React.Component {
                   <View style={{marginLeft: 30}}>
                     <View style={{marginTop: 15}}>
                       <Text style={{color:Styles.ThemeColor.color}}>
-                        张美娜
+                        {this.state.username}
                       </Text>
                     </View>
                     <View style={{marginTop: 15}}>
                       <Text style={{color:Styles.ThemeColor.color}}>
-                        余额：842.00元
+                        余额：{this.state.userbalance} 元
                       </Text>
                     </View>
                   </View>

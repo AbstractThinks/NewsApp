@@ -21,63 +21,51 @@ import Article from './article.js';
 const styles = StyleSheet.create(Styles);
 
 class ArticleListItem extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
   _onFetch(page = 1, callback, options) {
-    // setTimeout(() => {
-    //   fetch('/Users/Jesse/Desktop/NewsApp/HuaxiApp2/src/data/list.json')
-    //     .then(function(response) {
-    //       return response.json()
-    //     })
-    //     .then(function(json) {
-    //       console.log('parsed json', json)
-    //       callback(json.result)
-    //     }).catch(function(ex) {
-    //       console.log('parsing failed', ex)
-    //     })
-    // }, 1000)
-      
-      setTimeout(() => {
-          var rows = ['row ' + ((page - 1) * 3 + 1), 'row ' + ((page - 1) * 3 + 2), 'row ' + ((page - 1) * 3 + 3)];
-          if (page === 2) {
-              callback(rows, {
-                  allLoaded: true, // the end of the list is reached
-              });
-          } else {
-              callback(rows);
-          }
-      }, 1000); // simulating network fetching
+      fetch("http://localhost:3000/huxiuser/getarticles", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "page=" + (page-1)
+      }).then(function(response) {
+
+        return response.json()
+
+      }).then(function(json) {
+        if (json.data.allowLoad) {
+          callback(json.data.articles);
+
+        } else {
+          callback(json.data.articles, {
+              allLoaded: true, // the end of the list is reached
+          });
+        }
+      }).catch(function(ex) {
+        console.log('parsing failed', ex)
+      });
+
   }
   _onPress(rowData) {
       console.log(rowData + ' pressed');
   }
   _renderRowView(rowData) {
-      // return ( 
-      //   <TouchableHighlight
-      //     underlayColor = '#c8c7cc'
-      //     onPress = {
-      //         () => this.props.navigator.push({
-      //           component: Article,
-      //         })
-      //     }
-      //     style = {[Styles.ListComponent]}>
-      //     <View>
-      //         <Text style = {[Styles.ListContentTitle]}> { rowData.title } </Text> 
-      //         <Text style = {[Styles.ListContentDescrible]}> 
-      //              { rowData.description }</Text>
-      //         <Text style = {[Styles.ListContentSubtitle]}></Text>
-      //     </View>
-      //   </TouchableHighlight >
-      // );
       return ( 
         <TouchableHighlight
           underlayColor = '#c8c7cc'
           onPress = {
               () => this.props.navigator.push({
                 component: Article,
+                articleData:rowData,
               })
           }
           style = {[Styles.ListComponent]}>
           <View>
-              <Text style = {[Styles.ListContentTitle]}> 吴小平： 不要害怕A股大熊市，朝死的整，no zuo no die one more try </Text> 
+              <Text style = {[Styles.ListContentTitle]}> {rowData.title}</Text> 
               <Image
                 style={{height: 160,marginVertical: 8}}
                 resizeMode='contain'
@@ -91,13 +79,13 @@ class ArticleListItem extends React.Component {
                   />
                 </View>
                 <View style={{marginLeft: 8}}>
-                  <Text style={{fontSize: 14, color: 'rgb(154, 154, 154)'}}>大傻逼一个</Text>
+                  <Text style={{fontSize: 14, color: 'rgb(154, 154, 154)'}}>{rowData.author}</Text>
                 </View>
                 <View style={{marginLeft: 16}}>
                   <MaterialIcons name="av-timer" size={20} color={'rgb(154, 154, 154)'} />
                 </View>
                 <View style={{marginLeft: 4}}>
-                  <Text style={{fontSize: 14, color: 'rgb(154, 154, 154)'}}>2016-09-07</Text>
+                  <Text style={{fontSize: 14, color: 'rgb(154, 154, 154)'}}>{rowData.time}</Text>
                 </View>
               </View>
                 
@@ -126,33 +114,6 @@ class ArticleListItem extends React.Component {
 
     );
   }
-  // _renderRefreshableWaitingView() {
-  //   return (
-  //     <View style={[styles.paginationView]}>
-  //       <Text style={[styles.actionsLabel]}>
-  //         ~
-  //       </Text>
-  //     </View>
-  //   );
-  // }
-  // _renderRefreshableWillRefreshView() {
-  //   return (
-  //     <View style={[styles.paginationView]}>
-  //       <Text style={[styles.actionsLabel]}>
-  //         ~
-  //       </Text>
-  //     </View>
-  //   );
-  // }
-  // _renderRefreshableFetchingView() {
-  //   return (
-  //     <View style={[styles.paginationView]}>
-  //       <Text style={[styles.actionsLabel]}>
-  //         ~
-  //       </Text>
-  //     </View>
-  //   );
-  // }
 
 	render() {
 		return(

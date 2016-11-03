@@ -17,6 +17,7 @@
     "react-native-scrollable-tab-view": "^0.6.0",
     "react-native-tab-view": "0.0.31",
     "react-native-vector-icons": "^2.1.0",
+    "react-native-webview-bridge": "^0.33.0",
     "whatwg-fetch": "^1.0.0"
   }
 }

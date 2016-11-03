@@ -25,20 +25,25 @@ class MyListItem extends React.Component {
         super(props);
         this.displayName = 'MyListItem';   
   }
-  componentWillReceiveProps(){
-
-  }
   _onFetch(page = 1, callback, options) {  
-      setTimeout(() => {
-          var rows = ['row ' + ((page - 1) * 3 + 1), 'row ' + ((page - 1) * 3 + 2), 'row ' + ((page - 1) * 3 + 3)];
-          if (page === 2) {
-              callback(rows, {
-                  allLoaded: true, // the end of the list is reached
-              });
-          } else {
-              callback(rows);
-          }
-      }, 1000); // simulating network fetching
+
+    fetch("http://localhost:3000/huxiuser/getarticlesbuy", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "articlebuyid=123"
+    }).then(function(response) {
+        return response.json()
+    })
+    .then(function(json) {
+        callback(json.data, {
+            allLoaded: true, // the end of the list is reached
+        });
+    }).catch(function(ex) {
+        console.log('parsing failed', ex)
+    });
+
   }
   _onPress(rowData) {
       console.log(rowData + ' pressed');
@@ -55,8 +60,8 @@ class MyListItem extends React.Component {
           }
           style = {[Styles.ListComponent]}>
           <View>
-              <Text style = {[Styles.ListContentTitle]}> 吴小平： 不要害怕A股大熊市，朝死的整，no zuo no die one more try </Text> 
-              <View style={[{flexDirection: 'row'}, {alignItems: 'center'}]}>
+              <Text style = {[Styles.ListContentTitle]}> {rowData.title} </Text> 
+              <View style={[{flexDirection: 'row'}, {alignItems: 'center',paddingTop:8}]}>
                 <View>
                   <Image
                     style={{height: 28,width: 28, borderRadius: 14}}
@@ -64,13 +69,13 @@ class MyListItem extends React.Component {
                   />
                 </View>
                 <View style={{marginLeft: 8}}>
-                  <Text style={{fontSize: 14, color: 'rgb(154, 154, 154)'}}>大傻逼一个</Text>
+                  <Text style={{fontSize: 14, color: 'rgb(154, 154, 154)'}}>{rowData.author}</Text>
                 </View>
                 <View style={{marginLeft: 16}}>
                   <MaterialIcons name="av-timer" size={20} color={'rgb(154, 154, 154)'} />
                 </View>
                 <View style={{marginLeft: 4}}>
-                  <Text style={{fontSize: 14, color: 'rgb(154, 154, 154)'}}>2016-09-07</Text>
+                  <Text style={{fontSize: 14, color: 'rgb(154, 154, 154)'}}>{rowData.time}</Text>
                 </View>
               </View>
                 

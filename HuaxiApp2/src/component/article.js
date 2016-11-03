@@ -17,32 +17,22 @@ class Article extends Component {
   constructor(props) {
     super(props);
     this.displayName = 'InitialScreen'; 
-    this.state = {}  
+    this.state = {
+      articleData : this.props.route.articleData
+    }  
   }
+
+  // componentDidMount(){
+  //   this.setState({
+  //     articleId : this.props.route.articleId
+  //   })
+  // }
+
   
 
-  _onFetch(options) {
-    that = options
-    fetch('/Users/Jesse/Desktop/NewsApp/HuaxiApp2/src/data/article.json')
-      .then(function(response) {
-        return response.json()
-      })
-      .then(function(json) {
-        that.setState({
-
-          title : json.result.title,
-          content : json.result.content
-        
-        })
-      }).catch(function(ex) {
-        console.log('parsing failed', ex)
-      })
-    
-  }
-
-  componentWillMount() {
-      this._onFetch(this);
-  }
+  // componentWillMount() {
+  //     this._onFetch(this);
+  // }
 
   _handlepraise() {
     console.log("_handlepraise")
@@ -67,7 +57,7 @@ class Article extends Component {
           />
   
             <View style={[styles.container]}>
-              <ArticleWebView />
+              <ArticleWebView articleData={this.state.articleData}/>
     
             </View>
               
